@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 import { App } from './app';
 import { API_BASE_URL } from './app.tokens';
 
@@ -9,7 +10,8 @@ describe('App', () => {
       imports: [App],
       providers: [
         provideHttpClient(),
-        { provide: API_BASE_URL, useValue: 'http://localhost:8080/api/v1' }
+        provideRouter([]),
+        { provide: API_BASE_URL, useValue: '/api/v1' }
       ]
     }).compileComponents();
   });
@@ -20,10 +22,10 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render app title', async () => {
+  it('should render router outlet shell', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Gestión de Empleados');
+    expect(compiled.querySelector('router-outlet')).toBeTruthy();
   });
 });

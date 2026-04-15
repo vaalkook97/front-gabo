@@ -1,11 +1,18 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
-const credentials = btoa('admin:admin123');
-
 export const basicAuthInterceptor: HttpInterceptorFn = (req, next) => {
+  if (req.headers.has('Authorization')) {
+    return next(req);
+  }
+
+  const token = localStorage.getItem('auth.basic.credentials');
+  if (!token) {
+    return next(req);
+  }
+
   const authReq = req.clone({
     setHeaders: {
-      Authorization: `Basic ${credentials}`
+      Authorization: `Basic ${token}`
     }
   });
 

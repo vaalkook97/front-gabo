@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([basicAuthInterceptor])),
     {
       provide: API_BASE_URL,
-      useValue: 'http://localhost:8080/api/v1'
+      useValue: '/api/v1'
     }
   ]
 };
